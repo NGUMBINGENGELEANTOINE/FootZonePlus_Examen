@@ -51,7 +51,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'FootZonePlus.urls'
-AUTH_USER_MODEL = 'FootZonePlusApp.Utilisateur'
 
 TEMPLATES = [
     {
@@ -122,3 +121,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'FootZonePlusApp.CustomUser'
+LOGIN_URL = "connexion"
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/connexion/'
+

@@ -1,6 +1,6 @@
 from django.contrib import admin
-
-from FootZonePlusApp.models import Continent, Utilisateur, Paiement, Pays, Place, PlaceReservee, Categorie_Equipe, Categorie_Match, Equipe, Stade, Match, Reservation
+from django.contrib.auth.admin import UserAdmin
+from FootZonePlusApp.models import Continent, CustomUser, Paiement, Pays, Place, PlaceReservee, Categorie_Equipe, Categorie_Match, Equipe, Stade, Match, Reservation
 
 # Register your models here.
 
@@ -38,7 +38,7 @@ class AdminReservation(admin.ModelAdmin):
     list_display= ('utilisateur', 'match', 'date_reservation', 'total', 'statut')
 
 
-admin.site.register(Utilisateur)
+admin.site.register(CustomUser, UserAdmin)
 admin.site.register(Continent, AdminContinent)
 admin.site.register(Paiement, AdminPaiement)
 admin.site.register(Pays, AdminPays)

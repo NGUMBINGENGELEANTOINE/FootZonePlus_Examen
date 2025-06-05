@@ -1,12 +1,39 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager 
+from django.contrib.auth import get_user_model
 
 from FootZonePlus import settings
 
 # Create your models here.
+class CustomUserManager(BaseUserManager):
+    def create_user(self, username, email=None, password=None, **extra_fields):
+        if not username:
+            raise ValueError("Le nom d'utilisateur est requis")
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.is_active = True
+        user.is_client = True  # Par défaut
+        user.save(using=self._db)
+        return user
 
-class Utilisateur(AbstractUser):
+    def create_superuser(self, username, email=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_client", False)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Le superutilisateur doit avoir is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Le superutilisateur doit avoir is_superuser=True.")
+        return self.create_user(username, email, password, **extra_fields)
+
+
+
+class CustomUser(AbstractUser):
     is_client = models.BooleanField(default=True)
+
+    objects = CustomUserManager()
 
 class Continent(models.Model):
     nom = models.CharField(max_length=100)
