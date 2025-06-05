@@ -93,5 +93,21 @@ Gère la mise en production de l'application sur un serveur en ligne (l'hebergem
 
 Gère toutes les migrations effectuées dans le projet.
 
+10. le fichier forms.py 
+
+Permet de créer les formulaires sans passer par les fichiers html. ici on crée les formulaires en héritant de la classe UserCreationForm de django puis on appel le formulaire dans le fichier html.
+
+11. le dossier : templates
+
+Ce dossier contient tous nos fichiers html pour la structure de notre projet. C'est la norme avec django de créer un dossier templates. et ce dossier est sensible à la casse.
+
+12. le dossier des Migrations:
+
+Toutes nos listes de migrations vers la BD sont listées ici. 
+
+13. le dossier static:
+
+Ce dossier gère le fichier css pour le style et on peut y mettre les images aussi
+
 
 
