@@ -1,7 +1,29 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block profil %}
 
-<h1 class="text-danger py-5">Mon profil</h1>
+<section>
+    <div class="container" style="height: 100vh;">
+        <div class="row g-3 py-3">
+            <div class="col-md-3">
+                <h1 class="text-success fw-semibold">Mon profil</h1>
+    
+            </div>
+            <div class="col-md-6">
+                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus vero voluptatem consequatur quae ipsum quia, deserunt velit dolore officiis repellat a quasi voluptatibus repudiandae cupiditate labore consequuntur quo quis reiciendis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ratione! Incidunt quia tempora, corporis quo nemo, aperiam ullam similique magni, illum porro officiis quod tempore sapiente iste perferendis temporibus repellat?</p> -->
+    
+            </div>
+            <div class="col-md-3 shadow p-3">
+                <p>Connecté en tant que {{user.username}}</p>
+                <hr>
+                <p>Adresse email : {{user.email}}</p>
+                <hr>
+                <p>Inscrit le {{user.date_joined}}</p>
+                <hr>
+            </div>
+        </div>
+    </div>
+</section>
 
-{% endblock content %}
+
+{% endblock %}
