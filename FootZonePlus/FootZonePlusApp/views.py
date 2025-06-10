@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from FootZonePlusApp.models import CustomUser
+from FootZonePlusApp.models import CustomUser, Reservation
 from FootZonePlusApp.forms import SignupForm
 
 # Create your views here.
@@ -12,7 +12,8 @@ def index(request):
 
 @login_required
 def profilUser(request):
-    return render(request, 'MonProfil.html', {'user': request.user})
+    reservation = Reservation.objects.all()
+    return render(request, 'MonProfil.html', {'user': request.user, 'reservation': reservation})
 
 def connexion(request):
     if request.method == 'POST':

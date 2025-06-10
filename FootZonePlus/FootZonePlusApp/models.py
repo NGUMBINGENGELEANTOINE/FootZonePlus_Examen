@@ -39,17 +39,29 @@ class Continent(models.Model):
     nom = models.CharField(max_length=100)
     date_time_add = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.nom
+
 class Pays(models.Model):
     nom = models.CharField(max_length=100)
     date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nom
 
 class Categorie_Equipe(models.Model):
     titre = models.CharField(max_length=200, default='Club')
     date_time_add = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.titre
+
 class Categorie_Match(models.Model):
     titre = models.CharField(max_length=200, default='Match amical')
     date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titre
 
 class Equipe(models.Model):
     nom = models.CharField(max_length=100)
@@ -59,12 +71,18 @@ class Equipe(models.Model):
     pays_origine = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
     date_time_add = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.nom
+
 class Stade(models.Model):
     nom = models.CharField(max_length=200)
     pays = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
     nombre_place = models.IntegerField()
     adresse = models.TextField()
     date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nom
 
 class Match(models.Model):
     continent = models.ForeignKey(Continent, on_delete=models.CASCADE, null=True)
@@ -77,6 +95,9 @@ class Match(models.Model):
     description = models.TextField()
     date_time_add = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.equipe_visiteuse
+
 class Place(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
     rangée = models.CharField(max_length=10)
@@ -85,6 +106,9 @@ class Place(models.Model):
     prix = models.DecimalField(max_digits=8, decimal_places=2)
     est_disponible = models.BooleanField(default=True)
     date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.type
 
 class Reservation(models.Model):
     utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -103,4 +127,5 @@ class Paiement(models.Model):
     date_paiement = models.DateTimeField(auto_now_add=True)
     moyen_paiement = models.CharField(max_length=50)
     statut = models.CharField(max_length=20, choices=[('Validé', 'Validé'), ('En attente', 'En attente'), ('Annulé', 'Annulé')])
+    
 

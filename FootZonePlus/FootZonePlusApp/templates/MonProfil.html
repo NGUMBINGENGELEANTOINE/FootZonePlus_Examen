@@ -9,16 +9,27 @@
                 <h1 class="text-success fw-semibold">Mon profil</h1>
     
             </div>
-            <div class="col-md-6">
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus vero voluptatem consequatur quae ipsum quia, deserunt velit dolore officiis repellat a quasi voluptatibus repudiandae cupiditate labore consequuntur quo quis reiciendis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ratione! Incidunt quia tempora, corporis quo nemo, aperiam ullam similique magni, illum porro officiis quod tempore sapiente iste perferendis temporibus repellat?</p> -->
-    
+            <div class="col-md-6 pe-5 mt-5">
+                <h1>Mes resérvations :</h1>
+                <hr>
+                {% if reservation %}
+                    {% for r in reservation %}
+                    <p>Match réservé : {{ r.match }}</p>
+                    <p>Date de la réservation : {{ r.date_reservation|date:"d/m/Y H:i:s" }}</p>
+                    <p>Montant payé : {{ r.total }} $</p>
+                    <p>Status du match : {{ r.statut }}</p>
+                    {% endfor %}
+                {% else %}
+                <p>Aucune résérvation en cours !</p>
+                {% endif %}
+                <hr>  
             </div>
-            <div class="col-md-3 shadow p-3">
+            <div class="col-md-3 shadow p-3 mt-5">
                 <p>Connecté en tant que {{user.username}}</p>
                 <hr>
                 <p>Adresse email : {{user.email}}</p>
                 <hr>
-                <p>Inscrit le {{user.date_joined}}</p>
+                <p>Inscrit le {{user.date_joined|date:"d/m/Y"}}</p>
                 <hr>
             </div>
         </div>
