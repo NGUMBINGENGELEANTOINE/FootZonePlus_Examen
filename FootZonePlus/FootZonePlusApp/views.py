@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from FootZonePlusApp.models import CustomUser, Reservation
-from FootZonePlusApp.forms import SignupForm
+from FootZonePlusApp.forms import SignupForm, ReservationForm
 
 # Create your views here.
 def index(request):
@@ -42,3 +42,13 @@ def register(request):
 def deconnexion(request):
     logout(request)
     return redirect('connexion')
+
+def reservationBillet(request):
+    # if request.method == 'POST':
+    #     form = ReservationForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('profil')
+    # else:
+    #     form = ReservationForm()
+    return render(request, 'reserverBillet.html')

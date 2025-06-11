@@ -44,6 +44,7 @@ class Continent(models.Model):
 
 class Pays(models.Model):
     nom = models.CharField(max_length=100)
+    continent = models.ForeignKey(Continent, on_delete=models.CASCADE, null=True)
     date_time_add = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -73,6 +74,17 @@ class Equipe(models.Model):
 
     def __str__(self):
         return self.nom
+    
+class EquipeVisiteuse(models.Model):
+    nom = models.CharField(max_length=100)
+    categorie = models.ForeignKey(Categorie_Equipe, on_delete=models.CASCADE, null=True)
+    coatch = models.CharField(max_length=100)
+    nombre_joueur = models.IntegerField()
+    pays_origine = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
+    date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nom
 
 class Stade(models.Model):
     nom = models.CharField(max_length=200)
@@ -88,11 +100,11 @@ class Match(models.Model):
     continent = models.ForeignKey(Continent, on_delete=models.CASCADE, null=True)
     categorie = models.ForeignKey(Categorie_Match, on_delete=models.CASCADE, null=True)
     equipe_locale = models.ForeignKey(Equipe, on_delete=models.CASCADE, null=True)
-    equipe_visiteuse = models.CharField(max_length=100)
+    equipe_visiteuse = models.ForeignKey(EquipeVisiteuse, on_delete=models.CASCADE,related_name="Equipe_Visiteuse", null=True)
     stade = models.ForeignKey(Stade, on_delete=models.CASCADE, null=True)
     date_heure = models.DateTimeField()
     status = models.CharField(max_length=50 ,choices=[('Ouvert', 'Ouvert'), ('Fermé', 'Fermé')])
-    description = models.TextField()
+    description = models.TextField(null=True)
     date_time_add = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -110,22 +122,23 @@ class Place(models.Model):
     def __str__(self):
         return self.type
 
-class Reservation(models.Model):
-    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
-    date_reservation = models.DateTimeField(auto_now_add=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    statut = models.CharField(max_length=20, default='confirmée')
-
-class PlaceReservee(models.Model):
-    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE, related_name='places', null=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True)
 
 class Paiement(models.Model):
-    reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE, null=True)
+    utilisateur = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
     montant = models.DecimalField(max_digits=10, decimal_places=2)
     date_paiement = models.DateTimeField(auto_now_add=True)
     moyen_paiement = models.CharField(max_length=50)
     statut = models.CharField(max_length=20, choices=[('Validé', 'Validé'), ('En attente', 'En attente'), ('Annulé', 'Annulé')])
-    
+
+class Reservation(models.Model):
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
+    date_reservation = models.DateTimeField(auto_now_add=True)
+    total = models.ForeignKey(Paiement, on_delete=models.CASCADE, null=True)
+    statut = models.CharField(max_length=20, choices=[('Confirmée', 'Confirmée'), ('Terminée', 'Terminée')], default='Confirmée', null=True)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True)
+    stade = models.ForeignKey(Stade, on_delete=models.CASCADE, null=True)
+    equipe = models.ForeignKey(Equipe, on_delete=models.CASCADE, null=True)
+    pays = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
 

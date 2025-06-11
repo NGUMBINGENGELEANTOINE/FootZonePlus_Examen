@@ -1,6 +1,6 @@
 from django import views
 from django.urls import path
-from FootZonePlusApp.views import index, profilUser, connexion, register, deconnexion
+from FootZonePlusApp.views import index, profilUser, connexion, register, deconnexion, reservationBillet
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('connexion/', connexion, name="connexion"),
     path('register/', register, name="register"),
     path('deconnexion/', deconnexion, name="deconnexion"),
+    path('reservation/', reservationBillet, name="reservation")
 ]
