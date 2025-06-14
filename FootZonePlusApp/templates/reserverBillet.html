@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block reservation %}
+
+<section>
+    <div class="container py-5">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <a href="{% url 'profil' %}" class="btn btn-warning fw-semibold">Retour</a>
+            </div>
+            <h1 class="text-success py-3">Réserver votre billet maintenant !</h1>
+            <hr>
+            <div class="col-md-6">
+                <form action="{% url 'reservation' %}" method="post">
+                    {% csrf_token %}
+                    <label class="py-2" for="match_id">Choisir un match :</label>
+                    <select class="form-control" name="match_id" required>
+                        {% for m in match %}
+                            <option value="{{m.id}}">{{m.equipe_locale}} Vs {{m.equipe_visiteuse}} - {{m.date_heure}}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="py-2" for="type_place">Type de place :</label>
+                    <select class="form-control" name="type_place">
+                        <option value="Standard">Standard</option>
+                        <option value="VIP">VIP</option>
+                    </select>
+                    <button class="btn btn-warning form-control fw-semibold mt-3">Réserver</button>
+                </form>
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li {% if messages.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
