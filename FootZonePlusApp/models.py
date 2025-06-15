@@ -36,83 +36,90 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-# class Continent(models.Model):
-#     nom = models.CharField(max_length=100)
-#     date_time_add = models.DateTimeField(auto_now_add=True)
+class Continent(models.Model):
+    nom = models.CharField(max_length=100)
+    date_time_add = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.nom
+    def __str__(self):
+        return self.nom
 
-# class Pays(models.Model):
-#     nom = models.CharField(max_length=100)
-#     continent = models.ForeignKey(Continent, on_delete=models.CASCADE, null=True)
-#     date_time_add = models.DateTimeField(auto_now_add=True)
+class Pays(models.Model):
+    nom = models.CharField(max_length=100)
+    continent = models.ForeignKey(Continent, on_delete=models.CASCADE, null=True)
+    date_time_add = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.nom
+    def __str__(self):
+        return self.nom
 
-# class Categorie_Equipe(models.Model):
-#     titre = models.CharField(max_length=200, default='Club')
-#     date_time_add = models.DateTimeField(auto_now_add=True)
+class Categorie_Equipe(models.Model):
+    titre = models.CharField(max_length=200, default='Club')
+    date_time_add = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.titre
-
-# class Categorie_Match(models.Model):
-#     titre = models.CharField(max_length=200, default='Match amical')
-#     date_time_add = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return self.titre
-
-# class Equipe(models.Model):
-#     nom = models.CharField(max_length=100)
-#     categorie = models.ForeignKey(Categorie_Equipe, on_delete=models.CASCADE, null=True)
-#     coatch = models.CharField(max_length=100)
-#     nombre_joueur = models.IntegerField()
-#     pays_origine = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
-#     date_time_add = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return self.nom
+    def __str__(self):
+        return self.titre
     
-# class EquipeVisiteuse(models.Model):
-#     nom = models.CharField(max_length=100)
-#     categorie = models.ForeignKey(Categorie_Equipe, on_delete=models.CASCADE, null=True)
-#     coatch = models.CharField(max_length=100)
-#     nombre_joueur = models.IntegerField()
-#     pays_origine = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
-#     date_time_add = models.DateTimeField(auto_now_add=True)
+class Equipe(models.Model):
+    nom = models.CharField(max_length=200)
+    date_time_add = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.nom
+    def __str__(self):
+        return self.nom
 
-# class Stade(models.Model):
-#     nom = models.CharField(max_length=200)
-#     pays = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
-#     nombre_place = models.IntegerField()
-#     adresse = models.TextField()
-#     date_time_add = models.DateTimeField(auto_now_add=True)
+class Categorie_Match(models.Model):
+    titre = models.CharField(max_length=200, default='Match amical')
+    date_time_add = models.DateTimeField(auto_now_add=True)
 
-#     def __str__(self):
-#         return self.nom
+    def __str__(self):
+        return self.titre
+
+class EquipeLocale(models.Model):
+    nom = models.ForeignKey(Equipe, on_delete=models.CASCADE, null=True)
+    categorie = models.ForeignKey(Categorie_Equipe, on_delete=models.CASCADE, null=True)
+    coatch = models.CharField(max_length=100)
+    nombre_joueur = models.IntegerField()
+    pays_origine = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
+    date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.nom)
+    
+class EquipeVisiteuse(models.Model):
+    nom = models.ForeignKey(Equipe, on_delete=models.CASCADE, null=True)
+    categorie = models.ForeignKey(Categorie_Equipe, on_delete=models.CASCADE, null=True)
+    coatch = models.CharField(max_length=100)
+    nombre_joueur = models.IntegerField()
+    pays_origine = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
+    date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.nom)
+
+class Stade(models.Model):
+    nom = models.CharField(max_length=200)
+    pays = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
+    nombre_place = models.IntegerField()
+    adresse = models.TextField()
+    date_time_add = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nom
 
 class Match(models.Model):
-    # continent = models.ForeignKey(Continent, on_delete=models.CASCADE, null=True)
-    # categorie = models.ForeignKey(Categorie_Match, on_delete=models.CASCADE, null=True)
-    # equipe_locale = models.ForeignKey(Equipe, on_delete=models.CASCADE, null=True)
-    # equipe_visiteuse = models.ForeignKey(EquipeVisiteuse, on_delete=models.CASCADE,related_name="Equipe_Visiteuse", null=True)
-    # stade = models.ForeignKey(Stade, on_delete=models.CASCADE, null=True)
-    equipe_locale = models.CharField(max_length=100, null=True)
-    equipe_visiteuse = models.CharField(max_length=100, null=True)
-    date_heure = models.DateTimeField(null=True)
-    lieu = models.CharField(max_length=255, null=True)
+    continent = models.ForeignKey(Continent, on_delete=models.CASCADE, null=True)
+    categorie = models.ForeignKey(Categorie_Match, on_delete=models.CASCADE, null=True)
+    equipe_locale = models.ForeignKey(EquipeLocale, on_delete=models.CASCADE, null=True)
+    equipe_visiteuse = models.ForeignKey(EquipeVisiteuse, on_delete=models.CASCADE, null=True)
+    stade = models.ForeignKey(Stade, on_delete=models.CASCADE, null=True)
+    # equipe_locale = models.CharField(max_length=100, null=True)
+    # equipe_visiteuse = models.CharField(max_length=100, null=True)
+    heure = models.TimeField(null=True)
+    date = models.DateField(null=True)
+    # lieu = models.CharField(max_length=255, null=True)
     status = models.CharField(max_length=50 ,choices=[('Ouvert', 'Ouvert'), ('Fermé', 'Fermé')], null=True)
-    date_time_add = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="images/", blank=True, null=True)
 
     def __str__(self):
-        return self.equipe_locale 
+        return str(self.equipe_locale)
 
 class Place(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
@@ -124,7 +131,7 @@ class Place(models.Model):
     date_time_add = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.type
+        return str(self.match)
 
 
 # class Paiement(models.Model):
@@ -142,6 +149,12 @@ class Reservation(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     statut = models.CharField(max_length=20, null=True)
 
+    def __str__(self):
+        return str(self.match)
+
 class PlaceReservee(models.Model):
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.reservation)
