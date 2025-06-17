@@ -131,7 +131,7 @@ class Place(models.Model):
     date_time_add = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.match)
+        return str(self.rangée)
 
 
 # class Paiement(models.Model):
@@ -147,7 +147,8 @@ class Reservation(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
     date_reservation = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    statut = models.CharField(max_length=20, null=True)
+    statut = models.CharField(max_length=20, null=True, choices=[('Validé', 'Validé'), ('En cours', 'En cours'), ('En attente', 'En attente')],)
+    pdf_file = models.FileField(upload_to='billets/', blank=True, null=True)
 
     def __str__(self):
         return str(self.match)

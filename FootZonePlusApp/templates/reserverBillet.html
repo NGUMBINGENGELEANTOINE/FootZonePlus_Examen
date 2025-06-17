@@ -16,7 +16,7 @@
                     <label class="py-2" for="match_id">Choisir un match :</label>
                     <select class="form-control" name="match_id" required>
                         {% for m in match %}
-                            <option value="{{m.id}}">{{m.equipe_locale}} Vs {{m.equipe_visiteuse}} - {{m.date_heure}}</option>
+                            <option value="{{m.id}}">{{m.equipe_locale}} Vs {{m.equipe_visiteuse}} - Le {{m.date}} à {{m.heure}}</option>
                         {% endfor %}
                     </select>
                     <label class="py-2" for="type_place">Type de place :</label>

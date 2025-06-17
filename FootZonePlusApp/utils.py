@@ -1,4 +1,5 @@
 from .models import Match, Place, Reservation, PlaceReservee
+from .pdf_generator import generer_billet_pdf
 
 def reserver_meilleure_place(utilisateur, match_id, type_place='Standard'):
     match = Match.objects.get(id=match_id)
@@ -14,6 +15,9 @@ def reserver_meilleure_place(utilisateur, match_id, type_place='Standard'):
         PlaceReservee.objects.create(reservation=reservation, place=place_dispo)
         place_dispo.est_disponible = False
         place_dispo.save()
+
+        generer_billet_pdf(reservation)
+        
         return reservation
     else:
         raise Exception("Aucune place disponible")

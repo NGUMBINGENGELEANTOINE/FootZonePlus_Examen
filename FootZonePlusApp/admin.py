@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from FootZonePlusApp.models import Categorie_Equipe, Categorie_Match, Continent, CustomUser, Equipe, EquipeLocale, EquipeVisiteuse, Pays, Place, Match, Reservation, PlaceReservee, Stade
-
+from .pdf_generator import generer_billet_pdf
+from django.utils.html import format_html
 # Register your models here.
 
 class AdminContinent(admin.ModelAdmin):
@@ -35,7 +36,20 @@ class AdminMatch(admin.ModelAdmin):
     list_display= ('id', 'continent', 'categorie', 'stade', 'image', 'equipe_locale', 'equipe_visiteuse', 'heure', 'status', 'date')
 
 class AdminReservation(admin.ModelAdmin):
-    list_display= ('id','utilisateur', 'match', 'date_reservation', 'total','statut')
+    list_display= ('id','utilisateur', 'match', 'date_reservation', 'total','statut', 'lien_billet')
+
+    def generer_billet_pdf_action(self, request, queryset):
+        for reservation in queryset:
+            generer_billet_pdf(reservation)
+        self.message_user(request, "Billet(s) PDF généré(s) avec succès.")
+    generer_billet_pdf_action.short_description = "Générer les billets PDF sélectionnés"
+
+    def lien_billet(self, obj):
+        if obj.pdf_file:
+            return format_html(f"<a href='{obj.pdf_file.url}' target='_blank'>Télécharger</a>")
+        return "Pas encore généré"
+    lien_billet.short_description = "Billet PDF"
+    
 
 class AdminPlaceReservee(admin.ModelAdmin):
     list_display= ('id','reservation','place')
