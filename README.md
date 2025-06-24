@@ -27,6 +27,10 @@ Comment Exécuter le Projet ?
 Voici les étapes à suivre :
 
 1. Ouvrer l'invite commande cmd à la racine du projet
+    a) Avant, Effacer le dossier env du projet
+    b) Récréer le dossier avec la commande :
+        python -m venv env
+
 2. Activer l'environnement virtuel du projet avec la commande :
 
     env\Scripts\activate
@@ -47,6 +51,10 @@ Voici les étapes à suivre :
     la page connexion s'ouvrira puis connectez - vous en tant que administrateur avec les identifiants :
     - Nom d'utilisateur : admin
     - Mot de passe : admin
+
+6. Désactiver l'environnement virtuel :
+
+    deactivate
 
 ======================================================================================
 
@@ -89,7 +97,7 @@ Permet de faire les tests unitaires
 
 Gère la mise en production de l'application sur un serveur en ligne (l'hebergement).
 
-9. les fichiers __inti__.py
+9. les fichiers __init__.py
 
 Gère toutes les migrations effectuées dans le projet.
 

@@ -12,10 +12,13 @@
             <div class="row g-3 shadow p-5">
                 <h1 class="text-success">Inscription</h1>
                 <hr>
-                <div class="col-md-6">
+                <div class="col-md-2">
+                    
+                </div>
+                <div class="col-md-4">
                     <img class="w-100 py-2" src="https://th.bing.com/th/id/OIP.ggKK43ZCyaHKNn2Wyi6iHAHaFh?r=0&rs=1&pid=ImgDetMain" alt="">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <form action="{% url 'register' %}" method="post">
                         {% csrf_token %}
                         {{form.as_p}}

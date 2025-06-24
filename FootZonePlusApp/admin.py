@@ -1,9 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from FootZonePlusApp.models import Categorie_Equipe, Categorie_Match, Continent, CustomUser, Equipe, EquipeLocale, EquipeVisiteuse, Pays, Place, Match, Reservation, PlaceReservee, Stade
+from FootZonePlusApp.models import Categorie_Equipe, Categorie_Match, Contact, Continent, CustomUser, Equipe, EquipeLocale, EquipeVisiteuse, Pays, Place, Match, Reservation, PlaceReservee, Stade, Apropos
 from .pdf_generator import generer_billet_pdf
 from django.utils.html import format_html
 # Register your models here.
+
+admin.site.site_header = "FootZone+ | Administration"
+admin.site.site_title = "FootZone+"
+admin.site.index_title = "FootZone+"
+
 
 class AdminContinent(admin.ModelAdmin):
     list_display= ('id','nom', 'date_time_add')
@@ -49,13 +54,19 @@ class AdminReservation(admin.ModelAdmin):
             return format_html(f"<a href='{obj.pdf_file.url}' target='_blank'>Télécharger</a>")
         return "Pas encore généré"
     lien_billet.short_description = "Billet PDF"
-    
+
 
 class AdminPlaceReservee(admin.ModelAdmin):
     list_display= ('id','reservation','place')
 
 class AdminEquipe(admin.ModelAdmin):
     list_display= ('id','nom')
+
+class AdminContact(admin.ModelAdmin):
+    list_display = ('id', 'nom', 'prenom', 'telephone', 'email', 'message')
+
+class AdminApropos(admin.ModelAdmin):
+    list_display = ('id', 'image', 'titre', 'slogan', 'contenus')
 
 
 admin.site.register(CustomUser, UserAdmin)
@@ -71,3 +82,5 @@ admin.site.register(Stade, AdminStade)
 admin.site.register(Match, AdminMatch)
 admin.site.register(Reservation, AdminReservation)
 admin.site.register(PlaceReservee, AdminPlaceReservee)
+admin.site.register(Contact, AdminContact)
+admin.site.register(Apropos, AdminApropos)

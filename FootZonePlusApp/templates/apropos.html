@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block apropos %}
+
+<section>
+    <div class="container py-5">
+        <div class="row g-3">
+            {% if apropos %}
+            
+                {% for a in apropos %}
+                <div class="col-md-6">
+                    <img class="w-100" src="{{a.image.url}}" alt="{{a.titre}}">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="text-success">{{a.titre}}</h1>
+                    <p>{{a.slogan}}</p>
+                    <hr>
+                    <p>{{a.contenus}}</p>
+                </div>
+                {% endfor %}
+
+                {% else %}
+                    <p>Aucune description à afficher pour le moment !</p>
+                {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

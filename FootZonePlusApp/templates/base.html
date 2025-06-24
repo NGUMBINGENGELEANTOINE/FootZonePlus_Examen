@@ -22,18 +22,22 @@
                   <a class="nav-link active text-white shadow" aria-current="page" href="/">Acceuil</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-white shadow" href="#">A propos</a>
+                  <a class="nav-link text-white shadow" href="{% url 'apropos' %}">A propos</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-white shadow" href="#">Match</a>
+                  <a class="nav-link text-white shadow" href="{% url 'match' %}">Match</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-white shadow">Contact</a>
+                  <a class="nav-link text-white shadow" href="{% url 'contact' %}">Contact</a>
                 </li>
               </ul>
             </div>
             <a href="{% url 'profil' %}" class="btn text-white me-3 fw-semibold shadow"><i class="bi bi-person-fill"></i></a>
-            <a href="{% url 'connexion' %}" class="btn btn-warning text-dark fw-semibold shadow">Se connecter</a>
+            {% if not request.user.is_authenticated %}
+              <a href="{% url 'connexion' %}" class="btn btn-warning text-dark fw-semibold shadow">Se connecter</a>
+            {% else %}
+              <a href="{% url 'deconnexion' %}" class="btn btn-danger text-white">Déconnexion</a>            
+            {% endif %}
         </div>
       </nav>
     </div>
@@ -46,6 +50,15 @@
     {% endblock %}
 
     {% block reservation %}
+    {% endblock %}
+
+    {% block contact %}
+    {% endblock %}
+
+    {% block apropos %}
+    {% endblock %}
+
+    {% block match %}
     {% endblock %}
 
     <footer class="bg-dark py-3">

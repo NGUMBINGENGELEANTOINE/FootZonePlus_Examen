@@ -11,10 +11,10 @@
                 <a href="{% url 'reservation' %}" class="btn btn-warning fw-semibold">Reserver votre billet -></a>
             </div>
             <div class="col-md-6">
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <!-- <form method="get" class="d-flex" role="search">
+                  <input class="form-control me-2" name="recherche" type="search" placeholder="Search" aria-label="Search"/>
                   <button class="btn bg-warning text-dark fw-semibold" type="submit">Recherche</button>
-                </form>
+                </form> -->
                 <img class="w-100 my-5 shadow" src="https://th.bing.com/th/id/OIP.GuckXi3RLmzQhYPi169nZQHaEK?w=332&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="">
             </div>
         </div>
@@ -33,13 +33,13 @@
                     <img src="{{m.image.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{m.equipe_locale}} Vs {{m.equipe_visiteuse}}</h5>
-                        <p class="card-text">Date et Heure : {{m.date_heure}}</p>
-                        <a href="#" class="btn btn-warning">Détails</a>
-                        <a href="{% url 'reservation' %}" class="btn btn-success">Réserver</a>
+                        <p class="card-text">Date et Heure : Le {{m.date}} à {{m.heure}}</p>
+                        <!-- <a href="#" class="btn btn-warning">Détails</a> -->
                     </div>
                 </div>
             </div>
             {% endfor %}
+            <a href="{% url 'reservation' %}"><button class="btn btn-success">Réserver maintenant</button></a>
         </div>
         {% else %}
         <p>Aucun match à afficher pour le moment !</p>

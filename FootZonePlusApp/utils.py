@@ -1,9 +1,9 @@
 from .models import Match, Place, Reservation, PlaceReservee
 from .pdf_generator import generer_billet_pdf
 
-def reserver_meilleure_place(utilisateur, match_id, type_place='Standard'):
+def reserver_meilleure_place(utilisateur, match_id, type_place=['Standard', 'VIP']):
     match = Match.objects.get(id=match_id)
-    place_dispo = Place.objects.filter(match=match, type=type_place, est_disponible=True).order_by('rangée', 'numéro').first()
+    place_dispo = Place.objects.filter(match=match, type__in=type_place, est_disponible=True).order_by('rangée', 'numéro').first()
 
     if place_dispo:
         reservation = Reservation.objects.create(

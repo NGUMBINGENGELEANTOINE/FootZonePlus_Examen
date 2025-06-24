@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block match %}
+
+<section>
+    <div class="container py-5">
+        {% if match %}
+        <div class="row g-3">
+            <h1 class="pb-3">Tous les Matchs</h1>
+            <hr>
+            {% for m in match %}
+            <div class="col-md-3">
+                <div class="card w-100 shadow" style="width: 18rem;">
+                    <img src="{{m.image.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{m.equipe_locale}} Vs {{m.equipe_visiteuse}}</h5>
+                        <p class="card-text">Date et Heure : Le {{m.date}} à {{m.heure}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <a href="{% url 'reservation' %}"><button class="btn btn-success">Réserver maintenant</button></a>
+        </div>
+        {% else %}
+        <p>Aucun match à afficher pour le moment !</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

@@ -147,7 +147,7 @@ class Reservation(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, null=True)
     date_reservation = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    statut = models.CharField(max_length=20, null=True, choices=[('Validé', 'Validé'), ('En cours', 'En cours'), ('En attente', 'En attente')],)
+    statut = models.CharField(max_length=20, null=True)
     pdf_file = models.FileField(upload_to='billets/', blank=True, null=True)
 
     def __str__(self):
@@ -159,3 +159,16 @@ class PlaceReservee(models.Model):
 
     def __str__(self):
         return str(self.reservation)
+
+class Contact(models.Model):
+    nom = models.CharField(max_length=50)
+    prenom = models.CharField(max_length=50, null=True)
+    telephone = models.CharField(max_length=50, null=True)
+    email = models.EmailField()
+    message = models.TextField()
+
+class Apropos(models.Model):
+    image = models.ImageField(upload_to="images/", blank=True, null=True)
+    titre = models.CharField(max_length=200, null=True)
+    slogan = models.CharField(max_length=200, null=True)
+    contenus = models.TextField(null=True)
